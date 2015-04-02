@@ -1,0 +1,42 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+
+      <link rel="stylesheet" href="vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="vendor/components/angular-grid/ng-grid.css" />
+
+    <script src="vendor/js/jquery.min.js"></script>
+    <script src="vendor/js/angular.min.js"></script>
+    <script src="vendor/components/angular-grid/build/ng-grid.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/loginController.js"></script>
+    <script src="scripts/controllers/userGridController.js"></script>
+
+  </head>
+  <body>
+    <div>
+        <h1>Hello Merchant, You can showcase your produvt here</h1>
+
+      <label>Product Name:</label>
+      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+      <hr>
+        <label>Add Image</label>
+        <form id="uploadbanner" enctype="multipart/form-data" method="post" action="#">
+   <input id="fileupload" name="myfile" type="file" />
+   <input type="submit" value="submit" id="submit" />
+</form>
+        <br>
+        <label>Rate Your Product here</label>
+        <input type="text" ng-model="RatingNumber" placeholder="Enter Rating of you product">
+
+        <hr>
+        <input type="file" accept="image/*" image="image"/>
+<img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}" />
+        <h1><b>SHOWCASE</b></h1>
+      <h1>Product Name : {{yourName}}!</h1>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+
+
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="vendor/components/angular-grid/ng-grid.css" />
+
+    <script src="vendor/js/jquery.min.js"></script>
+    <script src="vendor/js/angular.min.js"></script>
+    <script src="vendor/components/angular-grid/build/ng-grid.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/loginController.js"></script>
+    <script src="scripts/controllers/userGridController.js"></script>
+  
+    <link rel="stylesheet" href="vendor/css/MyStar.css" />
+
+    <script src="vendor/js/StarPattern.js"></script>
+
+    <script type="text/javascript"> angular.module('RatingTutorial', [])
+  .controller('RatingCtrl', function($scope) {
+    $scope.rating = 5;
+    $scope.rateFunction = function(rating) {
+      alert('Rating selected - ' + rating);
+    };
+  })
+  .directive('starRating',
+	function() {
+		return {
+			restrict : 'A',
+			template : '<ul class="rating">'
+					 + '	<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">'
+					 + '\u2605'
+					 + '</li>'
+					 + '</ul>',
+			scope : {
+				ratingValue : '=',
+				max : '=',
+				onRatingSelected : '&'
+			},
+			link : function(scope, elem, attrs) {
+				var updateStars = function() {
+					scope.stars = [];
+					for ( var i = 0; i < scope.max; i++) {
+						scope.stars.push({
+							filled : i < scope.ratingValue
+						});
+					}
+				};
+				
+				scope.toggle = function(index) {
+					scope.ratingValue = index + 1;
+					scope.onRatingSelected({
+						rating : index + 1
+					});
+				};
+				
+				scope.$watch('ratingValue',
+					function(oldVal, newVal) {
+						if (newVal) {
+							updateStars();
+						}
+					}
+				);
+			}
+		};
+	}
+);</script>
+
+    <style type="text/css">
+
+
+    .rating{
+  color: #a9a9a9;
+  margin: 0;
+  padding: 0;
+}
+
+ul.rating {
+  display: inline-block;
+}
+
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.rating .filled {
+  color: #21568b;
+}
+        </style>
+  
+</head>
+<body ng-app="RatingTutorial" ng-controller="RatingCtrl">
+  
+    <h3>Rating</h3>
+ <div ng-init="rating = star.rating + 1"></div>
+
+<div class="star-rating" star-rating rating-value="rating"
+
+ data-max="10" on-rating-selected="rateFunction(rating)"></div>
+</body>
+</html>

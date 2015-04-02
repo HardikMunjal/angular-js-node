@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+
+
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="vendor/components/angular-grid/ng-grid.css" />
+
+    <script src="vendor/js/jquery.min.js"></script>
+    <script src="vendor/js/angular.min.js"></script>
+    <script src="vendor/components/angular-grid/build/ng-grid.js"></script>
+
+    <script src="scripts/app.js"></script>
+    
+  
+    <link rel="stylesheet" href="vendor/css/MyStar.css" />
+
+    <script src="vendor/js/StarPattern.js"></script>
+
+  
+</head>
+<body ng-app="RatingApp" ng-controller="RatingCtrl" ng-init="rating = star.rating + 1">
+  <h1><i class="fa fa-code"></i> <a href="https://angularjs.org/">Angular.js</a> <a href="http://angulartutorial.blogspot.com/2014/03/rating-stars-in-angular-js-using.html">Loading..</a></h1>
+  <div star-rating ng-model="rating1" max="7" on-rating-selected="rateFunction(rating)"></div>
+  <star-rating ng-model="rating2"></star-rating>
+</body>
+</html>
