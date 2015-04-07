@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <style type="text/css">
+            
+            #slides_control > div{
+  height: 200px;
+}
+img{
+  margin:auto;
+  width: 400px;
+}
+#slides_control {
+  position:absolute;
+  width: 400px;
+  left:50%;
+  top:20px;
+ margin-left:-200px;
+}
+        </style>
+         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        </head>
+    <body>
+
+
+
+        <div ng-app="app">
+  <div ng-controller="CarouselDemoCtrl" id="slides_control">
+    <div>
+      <carousel interval="myInterval">
+        <slide ng-repeat="slide in slides" active="slide.active">
+          <img ng-src="{{slide.image}}">
+          <div class="carousel-caption">
+            <h4>Slide {{$index+1}}</h4>
+          </div>
+        </slide>
+      </carousel>
+    </div>
+  </div>
+
+            <div ng-controller="CarouselDemoCtrl2">
+  <div style="height: 305px">
+    <carousel interval="myInterval">
+      <slide ng-repeat="slide in slides" active="slide.active">
+        <img ng-src="{{slide.image}}" style="margin:auto;">
+        <div class="carousel-caption">
+          <h4>Slide {{$index}}</h4>
+          <p>{{slide.text}}</p>
+        </div>
+      </slide>
+    </carousel>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-info" ng-click="addSlide()">Add Slide</button>
+    </div>
+    <div class="col-md-6">
+      Interval, in milliseconds: <input type="number" class="form-control" ng-model="myInterval">
+      <br />Enter a negative number or 0 to stop the interval.
+    </div>
+  </div>
+</div>
+
+</div>  
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+
+        <script type="text/javascript">
+
+           var app = angular.module('app', ['app1','demo']);
+
+
+           var mod1= angular.module('app1', ['ui.bootstrap']);
+function CarouselDemoCtrl($scope){
+  $scope.myInterval = 3000;
+  $scope.slides = [
+    {
+      image: 'http://lorempixel.com/400/200/'
+    },
+    {
+      image: 'http://lorempixel.com/400/200/food'
+    },
+    {
+      image: 'http://lorempixel.com/400/200/sports'
+    },
+    {
+      image: 'http://lorempixel.com/400/200/people'
+    }
+  ];
+}
+
+
+          var mod2=  angular.module('demo', ['ui.bootstrap']).controller('CarouselDemoCtrl2', function ($scope) {
+  $scope.myInterval = 5000;
+  var slides = $scope.slides = [];
+  $scope.addSlide = function() {
+    var newWidth = 600 + slides.length + 1;
+    slides.push({
+      image: 'http://placekitten.com/' + newWidth + '/300',
+      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+    });
+  };
+  for (var i=0; i<4; i++) {
+    $scope.addSlide();
+  }
+});
+
+        </script>
+
+
+        </body>
+    </html> <!-- end sidetab container -->

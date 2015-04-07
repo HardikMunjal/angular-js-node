@@ -4,65 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-
-
-   
     
+       <script src="vendor/js/angular.min.js"></script>
    
-    <script src="vendor/js/angular.min.js"></script>
-   
-    
-  
+      <script type="text/javascript">
+          angular.module('RatingTutorial', [])
 
-    <script type="text/javascript"> angular.module('RatingTutorial', [])
-  .controller('RatingCtrl', function($scope) {
-    $scope.rating = 5;
-    $scope.rateFunction = function(rating) {
-      alert('Rating selected - ' + rating);
-    };
-  })
-  .directive('starRating',
-	function() {
-		return {
-			restrict : 'A',
-			template : '<ul class="rating">'
-					 + '	<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">'
-					 + '\u2605'
-					 + '</li>'
-					 + '</ul>',
-			scope : {
-				ratingValue : '=',
-				max : '=',
-				onRatingSelected : '&'
-			},
-			link : function(scope, elem, attrs) {
-				var updateStars = function() {
-					scope.stars = [];
-					for ( var i = 0; i < scope.max; i++) {
-						scope.stars.push({
-							filled : i < scope.ratingValue
-						});
-					}
-				};
-				
-				scope.toggle = function(index) {
-					scope.ratingValue = index + 1;
-					scope.onRatingSelected({
-						rating : index + 1
-					});
-				};
-				
-				scope.$watch('ratingValue',
-					function(oldVal, newVal) {
-						if (newVal) {
-							updateStars();
-						}
-					}
-				);
-			}
-		};
-	}
-);</script>
+                   .controller('RatingCtrl', ['$http', function ($http) {
+                       var store = this;
+                       store.products = [];
+                       $http.get('https://catalogadmin-dev.paytm.com/v1/merchant/21492/catalog.json?authtoken=xzU2kpFoQTi2a-bApAj98w').success(function(data)
+                       {
+                           store.products=data;
+                       });
+                       
+                   } ])
+
+
+           
+            .directive('starRating',
+              function () {
+                  return {
+                      restrict: 'A',
+                      template: '<ul class="rating">'
+                               + '    <li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">'
+                               + '\u2605'
+                               + '</li>'
+                               + '</ul>',
+                      scope: {
+                          ratingValue: '=',
+                          max: '=',
+                          onRatingSelected: '&'
+                      },
+                      link: function (scope, elem, attrs) {
+                          var updateStars = function () {
+                              scope.stars = [];
+                              for (var i = 0; i < scope.max; i++) {
+                                  scope.stars.push({
+                                      filled: i < scope.ratingValue
+                                  });
+                              }
+                          };
+
+                          scope.toggle = function (index) {
+                              scope.ratingValue = index + 1;
+                              scope.onRatingSelected({
+                                  rating: index + 1
+                              });
+                          };
+
+                          scope.$watch('ratingValue',
+                              function (oldVal, newVal) {
+                                  if (newVal) {
+                                      updateStars();
+                                  }
+                              }
+                          );
+                      }
+                  };
+              }
+          );</script>
 
     <style type="text/css">
 
@@ -93,15 +94,17 @@ ul.rating {
   
 </head>
 <body>
+   <div  ng-app="RatingTutorial" ng-controller="RatingCtrl as St">
 
-    <div  ng-app="RatingTutorial" ng-controller="RatingCtrl">
-  
-    <h3>Rating</h3>
+       <li class="list-group-item" ng-repeat="product in St.products">
+           <h3>Rating</h3>
+       <h1>{{product[0].status}}</h1>
  <div ng-init="rating = star.rating + 1"></div>
 
 <div class="star-rating" star-rating rating-value="rating"
 
  data-max="10" on-rating-selected="rateFunction(rating)"></div>
+           </li>
         </div>
 </body>
 </html>

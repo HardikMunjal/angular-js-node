@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    
+  </head>
+    <body ng-app="app">
+        
+       <script type="text/javascript">
+        
+         </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+
+<div ng-controller="JustCtrl">
+  <span ng-repeat="p in ptis">
+        {{p.name}}, {{p.description}}, etc...<br>
+    </span>
+</div>
+        
+        
+        <script type="text/javascript" >
+             var app = angular.module('app', ['RatingTutorial', 'myApp','myApp1']);
+
+            var module2=angular.module('myApp', [])
+  .controller('JustCtrl', function($scope, $http) {
+    $scope.ptis = [];
+    // Simple GET request example :
+    $http.get('https://gist.githubusercontent.com/idhamperdameian/239cc5a4dbba4488575d/raw/0a2ea4c6c120c9a8f02c85afcf7a31941ef74d3a/ptis.json').
+    success(function(data, status, headers, config) {
+      // this callback will be called asynchronously
+      // when the response is available
+      $scope.ptis = data;
+    }).
+    error(function(data, status, headers, config) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
+  });
+ 
+ var module1=angular.module('RatingTutorial', [])
+  .controller('RatingCtrl', function($scope) {
+    $scope.rating = 5;
+    $scope.rateFunction = function(rating) {
+      alert('Rating selected - ' + rating);
+    };
+  })
+  .directive('starRating',
+	function() {
+		return {
+			restrict : 'A',
+			template : '<ul class="rating">'
+					 + '	<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">'
+					 + '\u2605'
+					 + '</li>'
+					 + '</ul>',
+			scope : {
+				ratingValue : '=',
+				max : '=',
+				onRatingSelected : '&'
+			},
+			link : function(scope, elem, attrs) {
+				var updateStars = function() {
+					scope.stars = [];
+					for ( var i = 0; i < scope.max; i++) {
+						scope.stars.push({
+							filled : i < scope.ratingValue
+						});
+					}
+				};
+				
+				scope.toggle = function(index) {
+					scope.ratingValue = index + 1;
+					scope.onRatingSelected({
+						rating : index + 1
+					});
+				};
+				
+				scope.$watch('ratingValue',
+					function(oldVal, newVal) {
+						if (newVal) {
+							updateStars();
+						}
+					}
+				);
+			}
+		};
+	}
+);
+        
+         var moduleService=angular.module('myApp1', [])
+  .controller('JustCtrl', function($scope, $http) {
+    $scope.ptis = [];
+    // Simple GET request example :
+    $http.get('https://gist.githubusercontent.com/idhamperdameian/239cc5a4dbba4488575d/raw/0a2ea4c6c120c9a8f02c85afcf7a31941ef74d3a/ptis.json').
+    success(function(data, status, headers, config) {
+      // this callback will be called asynchronously
+      // when the response is available
+      $scope.ptis = data;
+    }).
+    error(function(data, status, headers, config) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
+  });
+        </script>
+
+</body>
+</html>

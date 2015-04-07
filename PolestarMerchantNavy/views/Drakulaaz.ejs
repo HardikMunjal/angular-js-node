@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" media="screen">
+    </head>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+    <body ng-app="store">
+
+        <div ng-controller="StoreController as St">
+
+
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="product in St.products">
+            
+
+          
+                  <h1>{{product.name}}</h1>
+                <em class="pull-right">{{product.price||currency}}</em> 
+             <h1>{{product.price}}</h1>
+            <button ng-show="product.canPurchase">Add To Cart</button>
+                images:<img ng-src="{{product.images[0].full}}" width="100px" height="200px"/>
+                <pre>{{product.images[0].full}}</pre>
+
+
+                    <hr/>
+                         <div class="panel" ng-show="tab===1">
+                        <h4>Description</h4>
+                        <p>{{product.description}}</p>
+                    </div>
+                     <div class="panel" ng-show="tab===2">
+                        <h4>Specification</h4>
+                        <p>{{product.specification}}</p>
+                    </div>
+                     <div class="panel" ng-show="tab===3">
+                        <h4>Review</h4>
+                        <p>{{product.review}}</p>
+                    </div>
+
+                     <section>
+                  <ul class="nav nav-pills">
+                  <li><a href ng-click="tab = 1">Description</a></li>
+                      <li><a href ng-click="tab = 2">Specification</a></li>
+                      <li><a href ng-click="tab = 3">Review</a></li>
+                  </ul>
+                   <div class="panel" ng-show="tab===1">
+                        <h4>Description</h4>
+                        <p>{{product.description}}</p>
+                    </div>
+                     <div class="panel" ng-show="tab===2">
+                        <h4>Specification</h4>
+                        <p>{{product.specification}}</p>
+                    </div>
+                     <div class="panel" ng-show="tab===3">
+                        <h4>Review</h4>
+                        <p>{{product.review}}</p>
+                    </div>
+                         
+                  </section>
+
+                    <section>
+                        <ul class="nav nav-pills">
+                        <li ng-class="{active:tab===1}">
+                        <a href ng-click="tab=1">Description</a>
+                        </li>
+                            <li ng-class="{active:tab==='{{product.specification}}'}">
+                        <a href ng-click="tab='{{product.specification}}'}">Specification</a>
+                        </li>
+                            <li ng-class="{active:tab===3}">
+                        <a href ng-click="tab='WtF'">Review</a>
+                        </li>
+                        </ul>
+                    </section>
+
+                     <section ng-controller="PanelController as panel">
+                        <ul class="nav nav-pills">
+                        <li ng-class="{active:panel.isSelected(1)}">
+                        <a href ng-click="panel.selectTab(1)">Description</a>
+
+                      
+
+                        </li>
+                            <li ng-class="{active:panel.isSelected(2)}">
+                        <a href ng-click="panel.selectTab(2)">Specification</a>
+                                
+                        </li>
+                            <li ng-class="{active:panel.isSelected(3)}">
+                        <a href ng-click="panel.selectTab(3)">Review</a>
+                               
+                        </li>
+                        </ul>
+                         <div class="panel" ng-show="panel.isSelected(1)">
+                        <h4>Description</h4>
+                        <p>{{product.description}}</p>
+                    </div>
+                     <div class="panel" ng-show="panel.isSelected(2)">
+                        <h4>Specification</h4>
+                        <p>{{product.specification}}</p>
+                    </div>
+                     <div class="panel" ng-show="panel.isSelected(3)">
+                        <h4>Review</h4>
+                        <p>{{product.review}}</p>
+                    </div>
+
+                    </section>
+                    
+
+
+                     <section ng-controller="RatingCtrl as rat">
+
+                     status=  {{ prod.status[0]}}
+
+                    </section>
+                    <section>
+                    <div ng-controller="JustCtrl">
+  <span ng-repeat="p in ptis">
+        {{p.name}}, {{p.description}} <br>
+    </span>
+                        </section>
+</div>
+
+
+
+         </li>
+            </ul>
+            </div>
+        <script type="text/javascript">
+
+            (function StoreController() {
+
+
+                var app = angular.module('store', []);
+
+                app.controller('StoreController', function ()
+                { this.products = gem; }
+                );
+
+
+
+
+                var gem = [{
+                    name: 'Brush',
+                    price: 32.95,
+                    images: [{ full: 'images/image1.png', thumb: 'images/image2.jpg' }, { full: 'images/image3.jpg', thumb: 'images/image5.jpg'}],
+                    description: 'This product is very awesome',
+                    specification: 'Is tooth paste me namak hai',
+                    review: '5 star',
+                    canPurchase: true
+                },
+                {
+                    name: 'ToothPaste',
+                    price: 2.95,
+                    images: [{ full: 'images/image2.jpg', thumb: 'images/image2.jpg' }, { full: 'images/image3.jpg', thumb: 'images/image5.jpg'}],
+                    description: 'This product is fucking asshole',
+                    specification: 'Is tooth paste me namak nahi hai',
+                    review: '1 star',
+                    canPurchase: false
+                }]
+
+
+
+
+
+
+
+
+                app.controller('PanelController', function () {
+                    this.tab = 3;
+                    this.selectTab = function (setTab) {
+                        this.tab = setTab;
+                    };
+                    this.isSelected = function (checkTab) {
+                        return this.tab === checkTab;
+                    };
+                });
+
+
+
+                app.controller('RatingCtrl', ['$http', function ($http) {
+                    var mystore = this;
+                    mystore.prod = [];
+                    $http.get('https://catalogadmin-dev.paytm.com/v1/merchant/21492/catalog.json?authtoken=xzU2kpFoQTi2a-bApAj98w').success(function (data) {
+                        store.prod = data;
+                    });
+
+                } ]);
+
+
+                alert('Do you want to lode javascript');
+
+            })();
+
+            app.controller('JustCtrl', function($scope, $http) {
+    $scope.ptis = [];
+    // Simple GET request example :
+    $http.get('https://gist.githubusercontent.com/idhamperdameian/239cc5a4dbba4488575d/raw/0a2ea4c6c120c9a8f02c85afcf7a31941ef74d3a/ptis.json').
+    success(function(data, status, headers, config) {
+      // this callback will be called asynchronously
+      // when the response is available
+      $scope.ptis = data;
+    }).
+    error(function(data, status, headers, config) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
+  });
+
+        </script>
+
+
+
+</body>
+</html>

@@ -144,6 +144,7 @@ ul.rating {
 
 </style>
 </head>
+
     <body ng-app="RatingTutorial" ng-controller="RatingCtrl">
 <div class="container">
 	 <div id="blog" class="row"> 
@@ -177,7 +178,15 @@ ul.rating {
                          of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
                          Lorem Ipsum.    
                          </p></article>
-                  
+                     <br>
+                  <section>
+                  <ul class="nav nav-pills">
+                  <li><a href ng-click="tab = 'I will design your website banners in Photoshop i have very much of experience in using Photoshop which means your project in good hands and I promise you will be happy with my services'">Description</a></li>
+                      <li><a href ng-click="tab = 'Get up to 50% Paytm cash on Watches! Shop Now! T&C's Apply.'">Specification</a></li>
+                      <li><a href ng-click="tab = 'This service is really awesome, i have used it and i find it the best one'">Review</a></li>
+                  </ul>
+                  {{tab}}
+                  </section>
   
 
  <div ng-init="rating = star.rating + 1"></div>
@@ -198,6 +207,15 @@ ul.rating {
                          of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
                          Lorem Ipsum.
                          </p></article>
+<div class="panel" ng-show="tab==1"></div>
+                      <h4>Description</h4>
+                      <p>This product is awesome</p>
+                      </div>
+         <div class="panel" ng-show="tab==2"></div>
+                      <h4>Specification</h4>
+                      <p>This ajnaknkajn</p>
+                      </div>
+
                       <div ng-init="rating = star.rating + 1"></div>
 
 <div class="star-rating" star-rating rating-value="rating"

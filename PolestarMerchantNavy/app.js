@@ -12,7 +12,7 @@ var express = require('express')
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 9007);
+app.set('port', process.env.PORT || 9006);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -29,9 +29,25 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/li', routes.li);
+app.get('/angular', routes.angular);
+
+app.get('/grid', routes.description);
+
+app.get('/draka', routes.drakaOnFire);
+
+app.get('/ZoomCustomize', routes.zoom);
+
 app.get('/users', user.list);
 
 
-http.createServer(app).listen(app.get('port'), function(){
+
+
+
+
+
+
+http.createServer(app).listen(app.get('port'), function()
+		{
   console.log('Express server listening on port ' + app.get('port'));
 });

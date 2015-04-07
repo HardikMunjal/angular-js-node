@@ -25,7 +25,10 @@ aside {
 }</style>
 
 
-
+    <style type="text/css">.ds-btn li{ list-style:none; float:left; padding:10px; }
+.ds-btn li a span{padding-left:15px;padding-right:5px;width:100%;display:inline-block; text-align:left;}
+.ds-btn li a span small{width:100%; display:inline-block; text-align:left;}
+</style>
    
      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
      <script src="vendor/js/angular.min.js"></script>
@@ -311,8 +314,23 @@ ul.rating {
                <div>
                 <h2 style="color: #37D980">Add Your Products</h2>
                    </div>
-                <form id="well span8">
+
+
+                <form id="well span8" action="action" method="POST">
                    
+   
+    <ul class="ds-btn">
+     
+        <li>
+             <div class="btn btn-lg btn-success ">
+        <label >Merchant-Id</label> <input class="span3" placeholder=
+                "Your Merchant-id" type="text" ng-model="Merchant-id"> </div> 
+            
+        </li>
+        
+    </ul>
+    
+	
 
 
                     <div class="span3">
@@ -324,8 +342,30 @@ ul.rating {
 
                  <div>
             <label for="inputImage2">Add Product Image</label>
+                      
             
             <input id="inputImage2" 
+                type="file" 
+                accept="image/*" 
+                image="image2" 
+                resize-max-height="300"
+                resize-max-width="250"
+                resize-quality="0.7" />
+                     <input id="inputImage3" 
+                type="file" 
+                accept="image/*" 
+                image="image2" 
+                resize-max-height="300"
+                resize-max-width="250"
+                resize-quality="0.7" />
+                     <input id="inputImage4" 
+                type="file" 
+                accept="image/*" 
+                image="image2" 
+                resize-max-height="300"
+                resize-max-width="250"
+                resize-quality="0.7" />
+                     <input id="inputImage5" 
                 type="file" 
                 accept="image/*" 
                 image="image2" 
@@ -390,9 +430,11 @@ ul.rating {
                     </option>
 
                 </select>
+                        <br><br>
+<input type="submit" value="Submit">
             </div>
 
-
+                    
 
                 </form>  
                            
@@ -411,6 +453,10 @@ ul.rating {
                 <br>
                     
              <img ng-show="image2" ng-src="{{image2.resized.dataURL}}"/>
+                <br>
+                <img ng-show="image3" ng-src="{{image3.resized.dataURL}}"/>
+                <img ng-show="image4" ng-src="{{image4.resized.dataURL}}"/>
+                <img ng-show="image5" ng-src="{{image5.resized.dataURL}}"/>
                 <br>
     Details:  
                 <br>
@@ -432,7 +478,21 @@ ul.rating {
 
 
 
-
+            <div class="container">
+	<div class="row">
+   
+    <ul class="ds-btn">
+     
+        <li>
+             <a class="btn btn-lg btn-success " href="/angular">
+         <i class="glyphicon glyphicon-dashboard pull-left"></i><span>Your Showcase<br><small>As Visible to users</small></span></a> 
+            
+        </li>
+        
+    </ul>
+    
+	</div>
+</div>
 
 
     
@@ -448,9 +508,7 @@ ul.rating {
                         <div class="pull-middle">
                  <form class="well span8">
         
-                    <div>
-                        <img  src="images/banner_ecommerce.jpg" alt="ss" width="1500px" height="400px">
-                    </div>
+                    
                 
     </form>
 </div> </div>
