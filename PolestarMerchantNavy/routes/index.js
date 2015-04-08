@@ -6,7 +6,7 @@ exports.index = function(req, res){
 };
 
 exports.li = function(req, res){
-	  res.render('HardikAtulCollabrateView', { title: 'Express' });
+	  res.render('pageMain', { title: 'Express' });
 	  
 	};
 	
@@ -25,6 +25,20 @@ exports.drakaOnFire = function(req, res){
 };
 
 exports.zoom = function(req, res){
-	  res.render('ZoomCustomize', { title: 'Express' });
+	
+	
+	  res.render('FinalZoomCustomize', { title: 'Express' });
 	  
 };
+
+exports.test = function(req, res){
+	  res.render('ServiceCallOnButtonClick', { title: 'Express' });
+	  
+};
+
+
+exports.partials = function(req, res){
+	  var filename = req.params.filename;
+	  if(!filename) return;  // might want to change this
+	  res.render("partials/" + filename );
+	};

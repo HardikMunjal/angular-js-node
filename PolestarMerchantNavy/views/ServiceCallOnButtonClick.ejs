@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>AngularJS on click function call</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script>
+
+	
+
+    function BrowseCtrl($scope, $rootScope) {
+
+    $scope.persons = [{
+        id: 1,
+        name: "Mark"
+    }, {
+        id: 2,
+        name: "Jon"
+    }];
+
+    $scope.getPerson = function (person) {
+        $rootScope.$broadcast("person", person);
+    };
+}
+
+
+function DetailCtrl($scope, $location) {
+    $scope.$on("person", function (event, person) {
+        $scope.person = person;
+    });
+}
+
+</script>
+</head>
+<body>
+	
+    <div ng-app>
+    <div ng-controller="BrowseCtrl">
+        <ul id="thumbList">
+            <li ng-repeat="person in persons">
+                <input type="button" value="{{person.name}}" ng-click="getPerson(person)" />
+            </li>
+        </ul>
+    </div>
+    <div ng-controller="DetailCtrl">
+         <h1>Name: {{person.name}}</h1>
+    </div>
+</div>
+</body>
+</html>

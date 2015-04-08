@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- CSS -->
+    <!-- load bootstrap (bootswatch version) -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/readable/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- JS -->
+    <!-- load angular, ngRoute, ngAnimate -->
+    <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-animate.js"></script>
+    <script type="text/javascript">
+
+        var animateApp = angular.module('animateApp', ['ngRoute', 'ngAnimate']);
+
+animateApp.config(function($routeProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: '/partial/page-home.ejs',
+            controller: 'mainController'
+        })
+        .when('/about', {
+            templateUrl: '/partial/page-about.ejs',
+            controller: 'aboutController'
+        })
+        .when('/contact', {
+            templateUrl: '/partial/page-contact.ejs',
+            controller: 'contactController'
+        });
+
+});
+
+animateApp.controller('mainController', function($scope) {
+    $scope.pageClass = 'page-home';
+});
+
+animateApp.controller('aboutController', function($scope) {
+    $scope.pageClass = 'page-about';
+});
+
+animateApp.controller('contactController', function($scope) {
+    $scope.pageClass = 'page-contact';
+});
+    </script>
+
+</head>
+
+<!-- apply our angular app -->
+<body ng-app="animateApp">
+
+    <!-- inject our views using ng-view -->
+    <!-- each angular controller applies a different class here -->
+    <div class="page {{ pageClass }}" ng-view></div>
+        
+    <div id="about">
+        <p>A demo on Angular Animations: ng-view</p>
+        <p>View the <a href="http://scotch.io/tutorials/javascript/animating-angularjs-apps-ngview">Scotch.io Tutorial</a></p>
+    </div>
+        
+</body>
+</html>

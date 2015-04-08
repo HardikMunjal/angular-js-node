@@ -320,13 +320,36 @@
                 <!-- /.row -->
             </footer>
         </div>
+
+
+
+
+
+       
+
         <!-- /.container -->
         <!-- jQuery -->
         <script src="/atul/js/jquery.js"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="/atul/js/bootstrap.min.js"></script>
         <script type="text/javascript" >
-            var app = angular.module('app', ['RatingTutorial', 'myApp3','store','myApp']);
+            var app = angular.module('app', ['RatingTutorial', 'myApp3','store','myApp']).config(function($locationProvider, $routeProvider) {
+  $locationProvider.html5Mode(true);
+  $routeProvider
+    .when('/', {
+      templateUrl: '/partials/template1.html', 
+      controller: 'ctrl1'
+    })
+    .when('/tags/:tagId', {
+      templateUrl: '/partials/template2.html', 
+      controller:  'ctrl2'
+    })
+    .when('/another', {
+      templateUrl: '/views/MerchantAddForm.ejs', 
+      controller:  'ctrl1'
+    })
+    .otherwise({ redirectTo: '/' });
+});
 
            var moduleService=angular.module('myApp', [])
   .controller('JustCtrl', function($scope, $http) {
@@ -476,6 +499,13 @@
         {{px.merchant_id[0]}} etc...<br>
     </span>
 </div>
+
+         <div>
+    <a href="/">Home</a> | 
+    <a href="/another">another</a> | 
+    <a href="/tags/1">tags/1</a>
+</div>
+<div ng-view></div>
 
     </body>
 </html>

@@ -12,15 +12,17 @@ var express = require('express')
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 9006);
+app.set('port', process.env.PORT || 9007);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(app.router);
+
+
 
 // development only
 
@@ -36,9 +38,13 @@ app.get('/grid', routes.description);
 
 app.get('/draka', routes.drakaOnFire);
 
-app.get('/ZoomCustomize', routes.zoom);
+app.get('/ZoomCustomize/{PName}', routes.zoom);
+
+app.get('/testing', routes.test);
 
 app.get('/users', user.list);
+
+app.get('/partials/:filename', routes.partials);
 
 
 
